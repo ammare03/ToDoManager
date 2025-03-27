@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "957477575853",
+    "project_id": "todomanager-a013",
+    "storage_bucket": "todomanager-a013.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957477575853:android:489de1c735d98d0741fa24",
+        "android_client_info": {
+          "package_name": "com.example.todomanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuN5r5O4j4ZIkAlV9ZB-BK5RdnHjqlJ3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
