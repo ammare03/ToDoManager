@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.firebase.auth.v2101)
     implementation(libs.firebase.database)
+    implementation(libs.material.v140)
+
 }

@@ -4,9 +4,8 @@ public class Task {
     private String id;
     private String title;
     private String description;
-    private String priority; // "High", "Medium", "Low"
+    private String priority;
 
-    // Default constructor required for Firebase
     public Task() {}
 
     public Task(String id, String title, String description, String priority) {
@@ -16,7 +15,6 @@ public class Task {
         this.priority = priority;
     }
 
-    // Getters and Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

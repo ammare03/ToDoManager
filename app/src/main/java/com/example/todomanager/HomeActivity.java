@@ -32,43 +32,36 @@ public class HomeActivity extends AppCompatActivity implements TaskAdapter.OnTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Set up Firebase
         auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
         tasksRef = FirebaseDatabase.getInstance().getReference("tasks").child(userId);
 
-        // Set up Toolbar as the ActionBar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // RecyclerView setup
         recyclerView = findViewById(R.id.tasksRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         taskList = new ArrayList<>();
         adapter = new TaskAdapter(this, taskList, this);
         recyclerView.setAdapter(adapter);
 
-        // Floating Action Button to add tasks
         fab = findViewById(R.id.fabAddTask);
         fab.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, AddTaskActivity.class));
         });
 
-        // Load tasks from Firebase
         loadTasks();
 
-        // Swipe to delete functionality
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false; // Not used
+                return false;
             }
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Task taskToDelete = taskList.get(position);
-                // Remove from Firebase
                 tasksRef.child(taskToDelete.getId()).removeValue().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(HomeActivity.this, "Task deleted", Toast.LENGTH_SHORT).show();
@@ -76,7 +69,6 @@ public class HomeActivity extends AppCompatActivity implements TaskAdapter.OnTas
                         Toast.makeText(HomeActivity.this, "Deletion failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-                // Remove from local list
                 taskList.remove(position);
                 adapter.notifyItemRemoved(position);
             }
@@ -94,7 +86,6 @@ public class HomeActivity extends AppCompatActivity implements TaskAdapter.OnTas
                         taskList.add(task);
                     }
                 }
-                // Sort tasks based on priority: High -> Medium -> Low
                 taskList.sort(new Comparator<Task>() {
                     @Override
                     public int compare(Task t1, Task t2) {
@@ -122,7 +113,6 @@ public class HomeActivity extends AppCompatActivity implements TaskAdapter.OnTas
 
     @Override
     public void onInfoClick(Task task) {
-        // Open TaskDetailActivity to view/update the task
         Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
         intent.putExtra("taskId", task.getId());
         intent.putExtra("taskTitle", task.getTitle());
@@ -131,14 +121,12 @@ public class HomeActivity extends AppCompatActivity implements TaskAdapter.OnTas
         startActivity(intent);
     }
 
-    // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
-    // Handle menu item clicks
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {

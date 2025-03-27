@@ -32,13 +32,11 @@ public class TaskDetailActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.updateTaskButton);
         deleteButton = findViewById(R.id.deleteTaskButton);
 
-        // Set up spinner for priority selection
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prioritySpinner.setAdapter(adapter);
 
-        // Retrieve passed task data from intent
         taskId = getIntent().getStringExtra("taskId");
         String title = getIntent().getStringExtra("taskTitle");
         String description = getIntent().getStringExtra("taskDescription");
@@ -46,7 +44,6 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         titleEditText.setText(title);
         descriptionEditText.setText(description);
-        // Set spinner selection based on task priority
         if ("High".equals(priority)) {
             prioritySpinner.setSelection(0);
         } else if ("Medium".equals(priority)) {
@@ -88,7 +85,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         taskRef.setValue(updatedTask).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(TaskDetailActivity.this, "Task updated", Toast.LENGTH_SHORT).show();
-                finish(); // Return to HomeActivity
+                finish();
             } else {
                 Toast.makeText(TaskDetailActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
             }

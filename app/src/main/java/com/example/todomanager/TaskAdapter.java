@@ -15,7 +15,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private List<Task> taskList;
     private OnTaskClickListener listener;
 
-    // Interface for handling clicks on the info button
     public interface OnTaskClickListener {
         void onInfoClick(Task task);
     }

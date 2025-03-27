@@ -34,7 +34,6 @@ public class AddTaskActivity extends AppCompatActivity {
         prioritySpinner = findViewById(R.id.prioritySpinner);
         addTaskButton = findViewById(R.id.addTaskButton);
 
-        // Set up spinner with priority options (High, Medium, Low)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -58,7 +57,6 @@ public class AddTaskActivity extends AppCompatActivity {
             return;
         }
 
-        // Generate a unique id for the new task
         String taskId = tasksRef.push().getKey();
         Task task = new Task(taskId, title, description, priority);
 
@@ -66,7 +64,7 @@ public class AddTaskActivity extends AppCompatActivity {
         tasksRef.child(taskId).setValue(task).addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
                 Toast.makeText(AddTaskActivity.this, "Task added successfully", Toast.LENGTH_SHORT).show();
-                finish(); // Return to HomeActivity
+                finish();
             } else {
                 Toast.makeText(AddTaskActivity.this, "Failed to add task", Toast.LENGTH_SHORT).show();
             }
